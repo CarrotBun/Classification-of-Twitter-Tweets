@@ -1,4 +1,4 @@
-
+X=as.matrix(X)
 #Randomizing indices
 set.seed(1)
 indices=sample(1:50000, 50000)
