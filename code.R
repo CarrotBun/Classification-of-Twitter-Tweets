@@ -26,7 +26,7 @@ gbm_model = gbm.fit(x = data[train,1:1000],
                     verbose = TRUE, shrinkage = 0.6)
 
 yhat_gbm = predict(gbm_model, data[test,], 
-                   n.trees = 10, type = "response")[,,1]
+                   n.trees = 10, type = "response")[,,1]4
 # xg boost ## unfinished
 library(xgboost)
 t1 = proc.time()
@@ -115,3 +115,18 @@ for(i in 1:length(vec2)){
   num = vec2[i]
   output2[i] = run_log(num)
 }
+
+
+# Naive Bayes
+library(e1071)
+nBayes_model = naiveBayes(x = X[train, c(sim_indices[1:100, 2])], y = as.factor(y[train]))
+nBayes_prediction <- predict(nBayes_model, 
+                           newdata = X[test,c(sim_indices[1:100, 2])]) 
+# accuracy
+sum(nBayes_prediction == y[test])/length(y[test])
+
+nBayes_model2 = naiveBayes(x = X[train, ], y = as.factor(y[train]))
+nBayes_prediction2 <- predict(nBayes_model2, 
+                             newdata = X[test, ]) 
+# accuracy
+sum(nBayes_prediction2 == y[test])/length(y[test])
